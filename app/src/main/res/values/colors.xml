@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
+    <color name="black">#3A3A3A</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="botaoBase">#484848</color>
+    <color name="botaoOperacoesBasicas">#7957F6</color>
+    <color name="numeros">#5E5E5E</color>
+    <color name="memoria">#3A3A3A</color>
+
 </resources>
