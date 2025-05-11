@@ -7,6 +7,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import org.mariuszgromada.math.mxparser.Argument
+import org.mariuszgromada.math.mxparser.Expression
 
 
 class MainActivity : AppCompatActivity() {
@@ -81,9 +83,10 @@ class MainActivity : AppCompatActivity() {
         var MR = 0.0
         var temp1 = 0.0
         var temp2 = 0.0
-        var result = 0.0
-        var isResult = false
-        var operacao = 0
+        var result: Double? = 0.0
+        var isResult = true
+        var expressaoGeral = ""
+        var limparHistorico = false
 
         //Implementação da digitação de números no visor
         btn0.setOnClickListener {
@@ -92,14 +95,19 @@ class MainActivity : AppCompatActivity() {
             if(!visorPrincipal.text.toString().equals("0"))
                 visorPrincipal.setText(visorPrincipal.text.toString().plus("0"))
             isResult = false
+
+            if (limparHistorico) visorExpressao.setText("")
         }
 
         btn1.setOnClickListener {
-            if (visorPrincipal.text.toString().equals("0") || isResult)
+            if (visorPrincipal.text.toString().equals("0") || isResult){
                 visorPrincipal.setText("1")
+            }
             else
                 visorPrincipal.setText(visorPrincipal.text.toString().plus("1"))
             isResult = false
+
+            if (limparHistorico) visorExpressao.setText("")
         }
 
         btn2.setOnClickListener {
@@ -108,6 +116,8 @@ class MainActivity : AppCompatActivity() {
             else
                 visorPrincipal.setText(visorPrincipal.text.toString().plus("2"))
             isResult = false
+
+            if (limparHistorico) visorExpressao.setText("")
         }
 
         btn3.setOnClickListener {
@@ -116,6 +126,8 @@ class MainActivity : AppCompatActivity() {
             else
                 visorPrincipal.setText(visorPrincipal.text.toString().plus("3"))
             isResult = false
+
+            if (limparHistorico) visorExpressao.setText("")
         }
 
         btn4.setOnClickListener {
@@ -124,6 +136,8 @@ class MainActivity : AppCompatActivity() {
             else
                 visorPrincipal.setText(visorPrincipal.text.toString().plus("4"))
             isResult = false
+
+            if (limparHistorico) visorExpressao.setText("")
         }
 
         btn5.setOnClickListener {
@@ -132,6 +146,8 @@ class MainActivity : AppCompatActivity() {
             else
                 visorPrincipal.setText(visorPrincipal.text.toString().plus("5"))
             isResult = false
+
+            if (limparHistorico) visorExpressao.setText("")
         }
 
         btn6.setOnClickListener {
@@ -140,6 +156,8 @@ class MainActivity : AppCompatActivity() {
             else
                 visorPrincipal.setText(visorPrincipal.text.toString().plus("6"))
             isResult = false
+
+            if (limparHistorico) visorExpressao.setText("")
         }
 
         btn7.setOnClickListener {
@@ -148,6 +166,8 @@ class MainActivity : AppCompatActivity() {
             else
                 visorPrincipal.setText(visorPrincipal.text.toString().plus("7"))
             isResult = false
+
+            if (limparHistorico) visorExpressao.setText("")
         }
 
         btn8.setOnClickListener {
@@ -156,6 +176,8 @@ class MainActivity : AppCompatActivity() {
             else
                 visorPrincipal.setText(visorPrincipal.text.toString().plus("8"))
             isResult = false
+
+            if (limparHistorico) visorExpressao.setText("")
         }
 
         btn9.setOnClickListener {
@@ -164,9 +186,230 @@ class MainActivity : AppCompatActivity() {
             else
                 visorPrincipal.setText(visorPrincipal.text.toString().plus("9"))
             isResult = false
+
+            if (limparHistorico) visorExpressao.setText("")
         }
 
-        //Implementaçãp das ações de operações simples
+        virgula.setOnClickListener {
+            if (!visorPrincipal.text.toString().contains("."))
+                visorPrincipal.setText(visorPrincipal.text.toString().plus("."))
+        }
 
+        pi.setOnClickListener {
+            if (visorPrincipal.text.toString().equals("0") || isResult)
+                visorPrincipal.setText("3.1415926535897932384626433832795")
+            else
+                visorPrincipal.setText(visorPrincipal.text.toString().plus("3.1415926535897932384626433832795"))
+            isResult = false
+
+            if (limparHistorico) visorExpressao.setText("")
+        }
+
+        e.setOnClickListener {
+            if (visorPrincipal.text.toString().equals("0") || isResult)
+                visorPrincipal.setText("2.7182818284590452353602874713527")
+            else
+                visorPrincipal.setText(visorPrincipal.text.toString().plus("2.7182818284590452353602874713527"))
+            isResult = false
+
+            if (limparHistorico) visorExpressao.setText("")
+
+        }
+
+        // Implementação de operadores aritméticos
+        divisao.setOnClickListener {
+            temp1 = visorPrincipal.text.toString().toDouble()
+            expressaoGeral = "x/y"
+            visorExpressao.setText("${visorPrincipal.text.toString()} ÷")
+            isResult = true
+            limparHistorico = false
+        }
+
+        multiplicacao.setOnClickListener {
+            temp1 = visorPrincipal.text.toString().toDouble()
+            expressaoGeral = "x*y"
+            visorExpressao.setText("${visorPrincipal.text.toString()} x")
+            isResult = true
+            limparHistorico = false
+        }
+
+        subtracao.setOnClickListener {
+            temp1 = visorPrincipal.text.toString().toDouble()
+            expressaoGeral = "x-y"
+            visorExpressao.setText("${visorPrincipal.text.toString()} -")
+            isResult = true
+            limparHistorico = false
+        }
+
+        soma.setOnClickListener {
+            temp1 = visorPrincipal.text.toString().toDouble()
+            expressaoGeral = "x+y"
+            visorExpressao.setText("${visorPrincipal.text.toString()} +")
+            isResult = true
+            limparHistorico = false
+        }
+
+        mod.setOnClickListener {
+            temp1 = visorPrincipal.text.toString().toDouble()
+            expressaoGeral = "mod(x, y)"
+            visorExpressao.setText("${visorPrincipal.text.toString()} Mod")
+            isResult = true
+            limparHistorico = false
+        }
+
+        //Implementação das funções avançadas
+        x2.setOnClickListener {
+            result = calculaExpressao("x^2", visorPrincipal.text.toString().toDouble())
+            visorExpressao.setText("sqr(${visorPrincipal.text.toString()})")
+
+            //formatação da remoção do zero depois do ponto
+            if (result?.rem(1) == 0.0)
+                visorPrincipal.setText(result!!.toInt().toString())
+            else
+                visorPrincipal.setText(result.toString())
+
+            isResult = true
+            limparHistorico = true
+        }
+
+        dividirPorX.setOnClickListener {
+
+            if (visorPrincipal.text.toString().toDouble() != 0.0){
+                result = calculaExpressao("1/x", visorPrincipal.text.toString().toDouble())
+                visorExpressao.setText("1/(${visorPrincipal.text.toString()})")
+
+                //formatação da remoção do zero depois do ponto
+                if (result?.rem(1) == 0.0)
+                    visorPrincipal.setText(result!!.toInt().toString())
+                else
+                    visorPrincipal.setText(result.toString())
+            }else{
+                visorPrincipal.setText("Não é possível dividir por zero")
+            }
+
+
+            isResult = true
+            limparHistorico = true
+        }
+
+        valorAbsoluto.setOnClickListener {
+            result = calculaExpressao("abs(x)", visorPrincipal.text.toString().toDouble())
+            visorExpressao.setText("abs(${visorPrincipal.text.toString()})")
+
+            //formatação da remoção do zero depois do ponto
+            if (result?.rem(1) == 0.0)
+                visorPrincipal.setText(result!!.toInt().toString())
+            else
+                visorPrincipal.setText(result.toString())
+
+            isResult = true
+            limparHistorico = true
+        }
+
+        raizQuadrada.setOnClickListener {
+            result = calculaExpressao("sqrt(x)", visorPrincipal.text.toString().toDouble())
+            visorExpressao.setText("√(${visorPrincipal.text.toString()})")
+
+            //formatação da remoção do zero depois do ponto
+            if (result?.rem(1) == 0.0)
+                visorPrincipal.setText(result!!.toInt().toString())
+            else
+                visorPrincipal.setText(result.toString())
+
+            isResult = true
+            limparHistorico = true
+        }
+
+        dezExpoenteX.setOnClickListener {
+            result = calculaExpressao("10^x", visorPrincipal.text.toString().toDouble())
+            visorExpressao.setText("10^(${visorPrincipal.text.toString()})")
+
+            //formatação da remoção do zero depois do ponto
+            if (result?.rem(1) == 0.0)
+                visorPrincipal.setText(result!!.toInt().toString())
+            else
+                visorPrincipal.setText(result.toString())
+
+            isResult = true
+            limparHistorico = true
+        }
+
+        log.setOnClickListener {
+
+        }
+
+        inn.setOnClickListener {
+
+        }
+
+        //Funções adicionais
+        maisOuMenos.setOnClickListener {
+            if (visorPrincipal.text.toString().toDouble() != 0.0 ){
+                val temp = visorPrincipal.text.toString().toDouble() * -1
+                visorPrincipal.setText(temp.toString())
+            }
+        }
+
+        //Implementação do botão Igual
+        igual.setOnClickListener {
+            temp2 = visorPrincipal.text.toString().toDouble()
+
+            //Tratamento de divisão por zero
+            if (expressaoGeral == "x/y" && temp2 == 0.0){
+                visorPrincipal.setText("Não é possível dividir por zero")
+            }else{
+                visorExpressao.setText("${visorExpressao.text.toString()} ${visorPrincipal.text.toString()} =")
+                result = calculaExpressao2(expressaoGeral, temp1, temp2)
+
+                //formatação da remoção do zero depois do ponto
+                if (result?.rem(1) == 0.0)
+                    visorPrincipal.setText(result!!.toInt().toString())
+                else
+                    visorPrincipal.setText(result.toString())
+            }
+
+            isResult = true
+            limparHistorico = true
+        }
+
+        ce.setOnClickListener {
+            visorPrincipal.setText("0")
+            visorExpressao.setText("")
+            temp1 = 0.0
+            temp2 = 0.0
+            isResult = false
+            limparHistorico = false
+            result = 0.0
+            expressaoGeral = ""
+        }
+    }
+}
+
+//Calcula uma expressão (String) considerando 1 argumento.
+fun calculaExpressao (expressao: String, valor: Double): Double? {
+    val x = Argument("x = ${valor.toString()}")
+    val exp = Expression(expressao, x)
+
+    return if(exp.checkSyntax()){
+        //faz o calculo caso a sintaze seja válida
+        exp.calculate()
+    }else{
+        //Se a sintxe não for válida retorna Null
+        null
+    }
+}
+
+//Calcula uma expressão (String) considerando 2 argumentos.
+fun calculaExpressao2 (expressao: String, valorX: Double, valorY: Double): Double? {
+    val x = Argument("x = ${valorX.toString()}")
+    val y = Argument("y = ${valorY.toString()}")
+    val exp = Expression(expressao, x, y)
+
+    return if(exp.checkSyntax()){
+        //faz o calculo caso a sintaze seja válida
+        exp.calculate()
+    }else{
+        //Se a sintxe não for válida retorna Null
+        null
     }
 }
