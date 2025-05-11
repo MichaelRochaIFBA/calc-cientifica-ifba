@@ -227,7 +227,7 @@
             app:cornerRadius="0dp"
             android:text="CE" />
 
-        <Button
+        <ImageButton
             android:id="@+id/apagar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -236,7 +236,9 @@
             android:layout_weight="1"
             android:backgroundTint="@color/botaoBase"
             app:cornerRadius="0dp"
-            android:text="Apag." />
+            android:src="@drawable/ic_delete"
+            android:text=""
+            />
     </TableRow>
 
 

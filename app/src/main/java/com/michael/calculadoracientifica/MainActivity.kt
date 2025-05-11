@@ -2,6 +2,7 @@ package com.michael.calculadoracientifica
 
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -56,7 +57,7 @@ class MainActivity : AppCompatActivity() {
 
         //Variáveis de comando
         val ce = findViewById<Button>(R.id.ce)
-        val apagar = findViewById<Button>(R.id.apagar)
+        val apagar = findViewById<ImageButton>(R.id.apagar)
 
         //Variáveis do teclado numérico
         val btn0 = findViewById<Button>(R.id.zero)
@@ -71,6 +72,8 @@ class MainActivity : AppCompatActivity() {
         val btn9 = findViewById<Button>(R.id.nove)
         val maisOuMenos = findViewById<Button>(R.id.maisoumenos)
         val virgula = findViewById<Button>(R.id.virgula)
+        val abreParenteses = findViewById<Button>(R.id.abreParenteses)
+        val fechaParenteses = findViewById<Button>(R.id.fechaParenteses)
 
         //Variáveis das operações básicas
         val divisao = findViewById<Button>(R.id.divisao)
@@ -195,6 +198,14 @@ class MainActivity : AppCompatActivity() {
                 visorPrincipal.setText(visorPrincipal.text.toString().plus("."))
         }
 
+        abreParenteses.setOnClickListener {
+
+        }
+
+        fechaParenteses.setOnClickListener {
+
+        }
+
         pi.setOnClickListener {
             if (visorPrincipal.text.toString().equals("0") || isResult)
                 visorPrincipal.setText("3.1415926535897932384626433832795")
@@ -309,6 +320,20 @@ class MainActivity : AppCompatActivity() {
         raizQuadrada.setOnClickListener {
             result = calculaExpressao("sqrt(x)", visorPrincipal.text.toString().toDouble())
             visorExpressao.setText("√(${visorPrincipal.text.toString()})")
+
+            //formatação da remoção do zero depois do ponto
+            if (result?.rem(1) == 0.0)
+                visorPrincipal.setText(result!!.toInt().toString())
+            else
+                visorPrincipal.setText(result.toString())
+
+            isResult = true
+            limparHistorico = true
+        }
+
+        fatorial.setOnClickListener {
+            result = calculaExpressao("x!", visorPrincipal.text.toString().toDouble())
+            visorExpressao.setText("fact(${visorPrincipal.text.toString()})")
 
             //formatação da remoção do zero depois do ponto
             if (result?.rem(1) == 0.0)
