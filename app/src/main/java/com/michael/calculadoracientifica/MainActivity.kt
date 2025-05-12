@@ -198,12 +198,19 @@ class MainActivity : AppCompatActivity() {
                 visorPrincipal.setText(visorPrincipal.text.toString().plus("."))
         }
 
-        abreParenteses.setOnClickListener {
-
+        //Implementação das condições de memória
+        mc.setOnClickListener{
+            visorPrincipal.setText(MR.toString())
         }
 
-        fechaParenteses.setOnClickListener {
+        mMais.setOnClickListener{
+            MR += visorPrincipal.text.toString().toDouble()
+            visorPrincipal.setText("0")
+        }
 
+        mMenos.setOnClickListener{
+            MR -= visorPrincipal.text.toString().toDouble()
+            visorPrincipal.setText("0")
         }
 
         pi.setOnClickListener {
@@ -359,19 +366,54 @@ class MainActivity : AppCompatActivity() {
             limparHistorico = true
         }
 
-        log.setOnClickListener {
+        potencias.setOnClickListener {
+            temp1 = visorPrincipal.text.toString().toDouble()
+            expressaoGeral = "x^y"
+            visorExpressao.setText("${visorPrincipal.text.toString()} ^")
 
+            isResult = true
+            limparHistorico = false
+        }
+
+        log.setOnClickListener {
+            result = calculaExpressao("log(x, 10)", visorPrincipal.text.toString().toDouble())
+            visorExpressao.setText("log(${visorPrincipal.text.toString()})")
+
+            //formatação da remoção do zero depois do ponto
+            if (result?.rem(1) == 0.0)
+                visorPrincipal.setText(result!!.toInt().toString())
+            else
+                visorPrincipal.setText(result.toString())
+
+            isResult = true
+            limparHistorico = true
         }
 
         inn.setOnClickListener {
+            result = calculaExpressao("ln(x)", visorPrincipal.text.toString().toDouble())
+            visorExpressao.setText("ln(${visorPrincipal.text.toString()})")
 
+            //formatação da remoção do zero depois do ponto
+            if (result?.rem(1) == 0.0)
+                visorPrincipal.setText(result!!.toInt().toString())
+            else
+                visorPrincipal.setText(result.toString())
+
+            isResult = true
+            limparHistorico = true
         }
 
         //Funções adicionais
         maisOuMenos.setOnClickListener {
             if (visorPrincipal.text.toString().toDouble() != 0.0 ){
                 val temp = visorPrincipal.text.toString().toDouble() * -1
-                visorPrincipal.setText(temp.toString())
+
+                //formatação da remoção do zero depois do ponto
+                if (temp?.rem(1) == 0.0)
+                    visorPrincipal.setText(temp!!.toInt().toString())
+                else
+                    visorPrincipal.setText(result.toString())
+
             }
         }
 

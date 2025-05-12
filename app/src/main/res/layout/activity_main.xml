@@ -26,10 +26,11 @@
             android:textColor="#8E8E8E"
             android:textSize="16sp" />
     </TableRow>
+
     <TableRow
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="10"
+        android:layout_height="match_parent"
+        android:layout_weight="3"
         android:gravity="right"
         >
 
@@ -39,6 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:fontFamily="sans-serif-black"
+            android:gravity="right"
             android:text="0"
             android:textAlignment="viewEnd"
             android:textColor="#FDFDFD"
@@ -237,7 +239,6 @@
             android:backgroundTint="@color/botaoBase"
             app:cornerRadius="0dp"
             android:src="@drawable/ic_delete"
-            android:text=""
             />
     </TableRow>
 
