@@ -2,6 +2,8 @@
 
 Este projeto consiste em uma calculadora científica desenvolvida em Kotlin utilizando o Android Studio e a biblioteca [mXparser](https://mathparser.org/), como parte da disciplina de **Desenvolvimento Mobile - IFBA (Campus Eunápolis)- 2025.1**, disciplina ministrada pelo Prof. Mestre: Fábio Oliveira Silva. 
 
+[Vídeo Explicativo](https://www.youtube.com/watch?v=ZtTcyGuG-2Y)
+
 ## 🚀 Tecnologias Utilizadas
 
 - 🛠️ **Kotlin** - Linguagem principal do desenvolvimento Android
